@@ -33,7 +33,7 @@ const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState("")
     const PathName = usePathname()
     return (
-        <header className="flex flex-col relative">
+        <header className="flex flex-col relative z-0 sticky">
             <div className="bg-teal-200 w-full flex justify-center">
                 <p className="text-gray-700 p-1 text-center text-md">Price match guarantee - find a better deal? We'll match it!</p>
             </div>

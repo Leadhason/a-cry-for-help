@@ -14,7 +14,7 @@ if (!projectId || !dataset) {
 export default defineConfig({
   basePath: '/studio',
   name: 'default',
-  title: 'e-commerce',
+  title: 'Payless4Tech',
   projectId,
   dataset,
   plugins: [structureTool(), visionTool()],

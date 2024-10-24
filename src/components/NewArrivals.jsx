@@ -1,29 +1,29 @@
 
 'use client';
 
-import {client, urlFor} from "../../lib/sanityClient";
+import {client, urlFor} from "../lib/sanityClient";
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
 
 
-const getAllProducts = async () => {
-    const AllProductsQuery = `*[_type == "products"]{
+const getNewArrivals = async () => {
+    const NewArrivalsQuery = `*[_type == "products" && position == "New Arrivals"]{
       _id,
       name,
       image,
       price,
     }`;
-    const products = await client.fetch(AllProductsQuery);
+    const products = await client.fetch(NewArrivalsQuery);
     return products;
   };
   
-const Shop = () => {
+const NewArrivals = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const allProducts = await getAllProducts();
-      setProducts(allProducts);
+      const newArrivals = await getNewArrivals();
+      setProducts(newArrivals);
     };
     fetchData();
   }, []);
@@ -31,7 +31,17 @@ const Shop = () => {
   return (
     <div className="flex flex-col mt-8 mx-2 p-5 mt-10 mb-20">
        <div className="flex justify-between p-3">
-            <h1 className="font-weight-500 text-4xl">All Products</h1>
+            <h1 className="font-weight-500 text-4xl">New Arrivals</h1>
+            <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
+                View All
+                <Image
+                    src="/arrow-right-black.svg"
+                    alt="arrow-right"
+                    width={20}
+                    height={20}
+                    className="pt-1"
+                />
+            </button>
        </div>
        <hr className="w-full bg-gray-500"/>
 
@@ -60,4 +70,4 @@ const Shop = () => {
   )
 }
 
-export default Shop
+export default NewArrivals

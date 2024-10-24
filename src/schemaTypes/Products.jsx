@@ -24,6 +24,16 @@ export default {
             type: 'image',
         },
         {
+            name: 'brand',
+            title: 'Brand',
+            type: 'string',
+        },
+        {
+            name: 'position',
+            title: 'Position',
+            type: 'string',
+        },
+        {
             name: 'category',
             title: 'Category',
             type: 'array',

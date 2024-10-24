@@ -6,6 +6,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'fonts.googleapis.com',
         pathname: '/**',
+        hostname: 'cdn.sanity.io',
       },
     ],
   },
