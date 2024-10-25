@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { space } from 'postcss/lib/list';
 import React from 'react';
 
 const Footer = () => {

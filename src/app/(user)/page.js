@@ -1,6 +1,6 @@
 import PromoDeals from "../../components/PromoDeals";
 import Hero from "../../components/Hero";
-import PopularProducts from "@/src/components/PopularProducts";
+import PopularProducts from "../../components/PopularProducts";
 import Image from "next/image";
 import NewArrivalSection from "../../components/NewArrivals";
 

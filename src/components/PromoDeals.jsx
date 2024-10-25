@@ -51,8 +51,15 @@ const PromoDeals = () => {
                 </div>
             </div>
             <div className="flex justify-between mt-5">
-                <button className="bg-black w-[90px] text-white p-2 rounded-md hover:bg-transparent hover:text-black duration-200 text-sm">
+                <button className=" w-[90px] text-black p-2 rounded-md hover:text-gray-200 duration-200 text-sm">
                 Shop Now
+                <Image
+                    src="/icons/arrow-right-black.svg"
+                    alt="arrow-right"
+                    width={20}
+                    height={20}
+                    className="object-contain ml-2"
+                />
                 </button>
             </div>
             </div>
