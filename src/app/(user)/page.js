@@ -6,7 +6,7 @@ import NewArrivalSection from "../../components/NewArrivals";
 
 export default function Home() {
   return (
-    <div className="mx-2 mt-[70px] flex flex-col">
+    <div className="mx-2 mt-[50px] flex flex-col z-0">
       <Hero />
       <section className="bg-gray-50 flex flex-col w-full">
 

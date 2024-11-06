@@ -1,61 +1,154 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from "react";
-import Image from 'next/image';
-import Link from 'next/link';
+import { client, urlFor } from '../../../lib/sanityClient'
+import { useState, useEffect, useMemo } from "react"
+import Image from 'next/image'
+import { useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 
-const getAllProducts = async () => {
-  const AllProductsQuery = `*[_type == "products"]{
+const ITEMS_PER_PAGE = 12
+
+const getAllProducts = async (page) => {
+  const start = (page - 1) * ITEMS_PER_PAGE
+  const end = start + ITEMS_PER_PAGE
+
+  const AllProductsQuery = `*[_type == "product"]{
     _id,
     name,
+    description,
     image,
     price,
-  }`;
-  const products = await client.fetch(AllProductsQuery);
-  return products;
-};
+    slug
+  }`
+  
+  const totalCountQuery = `count(*[_type == "product"])`
 
-const ShopPage = () => {
-  const [products, setProducts] = useState([]);
+  const [products, totalCount] = await Promise.all([
+    client.fetch(AllProductsQuery),
+    client.fetch(totalCountQuery)
+  ])
+
+  return { products, totalCount }
+}
+
+const CustomSkeleton = ({ className }) => (
+  <div className={`animate-pulse bg-gray-200 ${className}`}></div>
+)
+
+export default function ShopPage() {
+  const [products, setProducts] = useState([])
+  const [totalCount, setTotalCount] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+  const [filterValue, setFilterValue] = useState("")
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const currentPage = Number(searchParams.get('page')) || 1
 
   useEffect(() => {
     const fetchData = async () => {
-      const allProducts = await getAllProducts();
-      setProducts(allProducts);
-    };
-    fetchData();
-  }, []);
+      setIsLoading(true)
+      try {
+        const { products, totalCount } = await getAllProducts()
+        setProducts(products)
+        setTotalCount(totalCount)
+      } catch (error) {
+        console.error("Failed to fetch products:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchData()
+  }, [])
+
+  const filteredProducts = useMemo(() => {
+    return products.filter(product => 
+      product.name.toLowerCase().includes(filterValue.toLowerCase()) ||
+      product.description.toLowerCase().includes(filterValue.toLowerCase())
+    )
+  }, [products, filterValue])
+
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE
+    const end = start + ITEMS_PER_PAGE
+    return filteredProducts.slice(start, end)
+  }, [filteredProducts, currentPage])
+
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)
+
+  const handlePageChange = (newPage) => {
+    router.push(`/shop?page=${newPage}`)
+  }
 
   return (
-    <div className="flex flex-col mt-8 mx-2 p-5 mt-10 mb-20">
-      <div className="flex justify-between p-3">
-        <h1 className="font-weight-500 text-4xl">All Products</h1>
+    <div className="flex flex-col mx-2 p-5 mt-5 mb-20">
+      <div className="flex justify-between items-center px-2">
+        <h1 className="font-extralight text-3xl">All Products</h1>
       </div>
-      <hr className="w-full bg-gray-500" />
 
-      <div className="grid grid-cols-4">
-        {products.map((product) => (
-          <div key={product._id} className="mt-3 flex items-center p-2">
-            <div className="flex flex-col bg-transparent shadow-lg justify-center place-content-center max-w-[330px] max-h-[520px] p-2">
-              <div className="bg-white h-[380px] w-[280px] place-content-center rounded-md">
-                <Image
-                  src={urlFor(product.image).url()}
-                  alt={product.name}
-                  width={500}
-                  height={500}
-                  className="object-contain p-1"
-                />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-6 mt-6">
+        {isLoading
+          ? Array(ITEMS_PER_PAGE).fill(0).map((_, index) => (
+              <div key={index} className="flex flex-col bg-transparent shadow-md w-full">
+                <div className="bg-gray-200 w-full aspect-square overflow-hidden">
+                  <CustomSkeleton className="w-full h-full" />
+                </div>
+                <div className="flex flex-col text-sm space-y-1 mt-4 p-4">
+                  <CustomSkeleton className="h-4 w-3/4" />
+                  <CustomSkeleton className="h-4 w-1/2" />
+                </div>
               </div>
-              <div className="text-sm space-y-1 text-left mt-2">
-                <h3 className="font-semibold">{product.name}</h3>
-                <p className="font-extralight">GHS {product.price}</p>
+            ))
+          : paginatedProducts.map((product) => (
+              <div key={product._id} className="flex flex-col bg-transparent shadow-md w-full">
+                <Link href={`/shop/${product.slug.current}`}>
+                  <div className="bg-gray-200 w-full aspect-square overflow-hidden">
+                    {product.image && product.image.length > 0 ? (
+                      <Image
+                        src={urlFor(product.image[0]).url()}
+                        alt={product.name}
+                        width={500}
+                        height={500}
+                        className="w-full h-full object-contain p-4 hover:scale-105 duration-200"
+                      />
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center bg-gray-200">
+                        <span>No Image Available</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col text-sm space-y-2 mt-4 p-4">
+                    <h3 className="font-semibold">{product.name}</h3>
+                    <p className="font-nomal text-gray-400 truncate">{product.description}</p>
+                    <p className="font-extralight">GHS {product.price}</p>
+                  </div>
+                </Link>
               </div>
-            </div>
-          </div>
-        ))}
+            ))}
+      </div>
+
+      {paginatedProducts.length === 0 && !isLoading && (
+        <p className="text-center mt-8 text-gray-500">No products found matching your search.</p>
+      )}
+
+      <div className="flex justify-center mt-10 space-x-1">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1 || isLoading}
+          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:bg-black focus:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Previous
+        </button>
+        <span className="flex items-center px-2 py-2 bg-primary text-primary-foreground rounded-md">
+          {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages || isLoading}
+          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:bg-black focus:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Next
+        </button>
       </div>
     </div>
-  );
-};
-
-export default ShopPage;
+  )
+}

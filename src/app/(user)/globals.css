@@ -20,7 +20,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Ubuntu, Helvetica, sans-serif;
+  font-family: Quicksand, Roboto, Helvetica, sans-serif;
 }
 
 @layer utilities {

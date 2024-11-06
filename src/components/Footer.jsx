@@ -25,31 +25,31 @@ const Footer = () => {
                         <div className="flex flex-col space-y-5">
                             <h3 className="text-white">Pages</h3>
                             <ul className=" text-sm text-gray-400">
-                               <Link href="/" className='hover:underline'><li>Home</li></Link>
-                               <Link href="/" className='hover:underline'><li>Shop</li></Link>
-                               <Link href="/" className='hover:underline'><li>About Us</li></Link>
-                               <Link href="/" className='hover:underline'><li>Categories</li></Link>
-                               <Link href="/" className='hover:underline'><li>Contact</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Home</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Shop</li></Link>
+                               <Link href="/" className='hover:text-white'><li>About Us</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Categories</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Contact</li></Link>
                             </ul>
                         </div>
 
                         <div className="flex flex-col space-y-5">
                             <h3 className="text-white">Resources</h3>
                             <ul className=" text-sm text-gray-400">
-                               <Link href="/" className='hover:underline'><li>Blogs</li></Link>
-                               <Link href="/" className='hover:underline'><li>FAQs</li></Link>
-                               <Link href="/" className='hover:underline'><li>Reviews</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Blogs</li></Link>
+                               <Link href="/" className='hover:text-white'><li>FAQs</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Reviews</li></Link>
                             </ul>
                         </div>
 
                         <div className="flex flex-col space-y-5">
                             <h3 className=" flex flex-none text-white">Social Media</h3>
                             <ul className=" text-sm text-gray-400 space-y-4">
-                               <Link href="/" className='hover:underline'><li>Twitter</li></Link>
-                               <Link href="/" className='hover:underline'><li>Tiktok</li></Link>
-                               <Link href="/" className='hover:underline'><li>Instagram</li></Link>
-                               <Link href="/" className='hover:underline'><li>Facebook</li></Link>
-                               <Link href="/" className='hover:underline'><li>LinkedIn</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Twitter</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Tiktok</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Instagram</li></Link>
+                               <Link href="/" className='hover:text-white'><li>Facebook</li></Link>
+                               <Link href="/" className='hover:text-white'><li>LinkedIn</li></Link>
                             </ul>
                         </div>
                     </div>
@@ -60,10 +60,10 @@ const Footer = () => {
                         <p className="text-sm text-gray-400">Subscribe to our newsletter to get the latest updates</p>
                         <form className="flex flex-col mt-2 space-y-2 text-sm">
                             <div className="flex flex-col mb-3 space-y-2">
-                                <input type="text" placeholder="Enter your name" className="p-2 w-56 rounded-md text-gray-300 border border-gray-500 bg-transparent"/>
-                                <input type="text" placeholder="Enter your email" className="p-2 w-56 rounded-md text-gray-300 border border-gray-500 bg-transparent"/>
+                                <input type="text" placeholder="Enter your name" className="p-2 w-60 rounded-md text-gray-300 border border-gray-500 bg-transparent"/>
+                                <input type="text" placeholder="Enter your email" className="p-2 w-60 rounded-md text-gray-300 border border-gray-500 bg-transparent"/>
                             </div>
-                            <button className="bg-transparent text-white p-2 rounded-md mt-5 w-56 border border-gray-500">Submit</button>
+                            <button className="bg-transparent text-white p-2 rounded-md mt-5 w-60 border border-gray-500">Submit</button>
                         </form>
                     </div>
                 </div>
