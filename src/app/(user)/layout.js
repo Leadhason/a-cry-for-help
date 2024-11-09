@@ -1,4 +1,3 @@
-
 import "./globals.css";
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
@@ -22,21 +21,22 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
   return (
-    <html lang="en">
-        <body
-          className={ubuntu.className}
-        >
-          <StateContextProvider>
-            <main className="flex flex-col">
-              <Toaster />
-              <Navbar />
+    <html lang="en" className="h-full">
+      <body
+        className={`${ubuntu.className} flex flex-col min-h-full`}
+      >
+        <StateContextProvider>
+          <div className="flex flex-col flex-grow">
+            <Toaster />
+            <Navbar />
+            <main className="flex-grow">
               {children}
-              <Footer />
             </main>
-          </StateContextProvider>
-        </body>
+            <Footer />
+          </div>
+        </StateContextProvider>
+      </body>
     </html>
   );
 }

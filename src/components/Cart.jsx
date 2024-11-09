@@ -19,7 +19,7 @@ const Cart = () => {
     };
 
     return (
-        <div className="fixed top-0 right-0 w-screen h-screen bg-black/50 z-[100] transition-all duration-1000 ease-in-out" ref={cartRef}>
+        <div className="fixed top-0 right-0 w-screen h-full bg-black/50 z-[100] transition-all duration-1000 ease-in-out" ref={cartRef}>
             <div className="h-screen w-[470px] bg-white float-right p-3 pr-2 relative">
                 <button
                     type="button"

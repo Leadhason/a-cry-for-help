@@ -21,8 +21,8 @@ const getPopularProducts = async () => {
 const CustomSkeleton = () => {
   return (
     <div className="flex flex-col mt-10 mx-2 p-5 mb-24 z-0 animate-pulse">
-      <div className="flex justify-between p-3">
-        <h1 className="font-weight-500 text-4xl">Popular Products</h1>
+      <div className="flex flex-col sm:flex-row justify-between p-3">
+        <h1 className="font-weight-500 text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-0">Popular Products</h1>
         <Link href="/shop">
           <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
             View All
@@ -37,10 +37,10 @@ const CustomSkeleton = () => {
         </Link>
       </div>
       <hr className="w-full bg-gray-300 my-4"/>
-      <div className="flex space-x-4 overflow-hidden">
+      <div className="flex flex-wrap justify-center sm:justify-start gap-4">
         {[...Array(4)].map((_, index) => (
-          <div key={index} className="flex-none w-[280px]">
-            <div className="bg-gray-200 h-[380px] w-[280px] rounded-md"></div>
+          <div key={index} className="w-full sm:w-[calc(50%-8px)] md:w-[calc(33.33%-16px)] lg:w-[280px]">
+            <div className="bg-gray-200 h-[380px] w-full rounded-md"></div>
             <div className="space-y-2 mt-4">
               <div className="h-4 bg-gray-200 rounded w-3/4"></div>
               <div className="h-4 bg-gray-200 rounded w-1/2"></div>
@@ -60,8 +60,8 @@ const PopularProductsContent = ({ products }) => {
 
   return (
     <div className="flex flex-col mt-10 mx-2 p-5 mb-24 z-0">
-      <div className="flex justify-between p-3">
-        <h1 className="font-weight-500 text-4xl">Popular Products</h1>
+      <div className="flex flex-col sm:flex-row justify-between p-3">
+        <h1 className="font-weight-500 text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-0">Popular Products</h1>
         <Link href="/shop">
           <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
             View All

@@ -4,9 +4,9 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer className="flex flex-col bg-black text-gray-300 z-0 text-sm">
-            <div className="w-full p-10">
-                <div className="grid grid-cols-3 justify-between w-full gap-8">
-                    <div className="flex flex-col space-y-6 ">
+            <div className="w-full p-5 md:p-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="flex flex-col space-y-6">
                         <div>
                             <h1 className="text-white">Address</h1>
                             <p className="text-sm text-gray-400 mt-1">4517 Washington Ave. Manchester, <br/>Kentucky 39495</p>
@@ -21,10 +21,10 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-between space-x-10">
+                    <div className="flex flex-wrap justify-between gap-8 md:gap-10">
                         <div className="flex flex-col space-y-5">
                             <h3 className="text-white">Pages</h3>
-                            <ul className=" text-sm text-gray-400">
+                            <ul className="text-sm text-gray-400 space-y-2">
                                <Link href="/" className='hover:text-white'><li>Home</li></Link>
                                <Link href="/" className='hover:text-white'><li>Shop</li></Link>
                                <Link href="/" className='hover:text-white'><li>About Us</li></Link>
@@ -35,7 +35,7 @@ const Footer = () => {
 
                         <div className="flex flex-col space-y-5">
                             <h3 className="text-white">Resources</h3>
-                            <ul className=" text-sm text-gray-400">
+                            <ul className="text-sm text-gray-400 space-y-2">
                                <Link href="/" className='hover:text-white'><li>Blogs</li></Link>
                                <Link href="/" className='hover:text-white'><li>FAQs</li></Link>
                                <Link href="/" className='hover:text-white'><li>Reviews</li></Link>
@@ -43,8 +43,8 @@ const Footer = () => {
                         </div>
 
                         <div className="flex flex-col space-y-5">
-                            <h3 className=" flex flex-none text-white">Social Media</h3>
-                            <ul className=" text-sm text-gray-400 space-y-4">
+                            <h3 className="flex flex-none text-white">Social Media</h3>
+                            <ul className="text-sm text-gray-400 space-y-2">
                                <Link href="/" className='hover:text-white'><li>Twitter</li></Link>
                                <Link href="/" className='hover:text-white'><li>Tiktok</li></Link>
                                <Link href="/" className='hover:text-white'><li>Instagram</li></Link>
@@ -54,28 +54,27 @@ const Footer = () => {
                         </div>
                     </div>
 
-
-                    <div className="flex flex-col ml-20">
+                    <div className="flex flex-col mt-8 lg:mt-0 lg:ml-20">
                         <h3 className="font-medium text-white">Newsletter</h3>
                         <p className="text-sm text-gray-400">Subscribe to our newsletter to get the latest updates</p>
                         <form className="flex flex-col mt-2 space-y-2 text-sm">
                             <div className="flex flex-col mb-3 space-y-2">
-                                <input type="text" placeholder="Enter your name" className="p-2 w-60 rounded-md text-gray-300 border border-gray-500 bg-transparent"/>
-                                <input type="text" placeholder="Enter your email" className="p-2 w-60 rounded-md text-gray-300 border border-gray-500 bg-transparent"/>
+                                <input type="text" placeholder="Enter your name" className="p-2 w-full lg:w-60 rounded-md text-gray-300 border border-gray-500 bg-transparent"/>
+                                <input type="text" placeholder="Enter your email" className="p-2 w-full lg:w-60 rounded-md text-gray-300 border border-gray-500 bg-transparent"/>
                             </div>
-                            <button className="bg-transparent text-white p-2 rounded-md mt-5 w-60 border border-gray-500">Submit</button>
+                            <button className="bg-transparent text-white p-2 rounded-md mt-5 w-full lg:w-60 border border-gray-500">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
             <hr className="w-full bg-gray-600 mt-5"/>
-            <div className="flex text-center mt-5 justify-between px-8 text-sm text-gray-400 py-2 mb-3">
+            <div className="flex flex-col md:flex-row text-center mt-5 justify-between px-4 md:px-8 text-sm text-gray-400 py-2 mb-3 space-y-2 md:space-y-0">
                 <p>© 2024 Payless4Tech. All rights reserved</p>
-                <div className="items-center text-center flex gap-1">
+                <div className="items-center text-center flex flex-col md:flex-row gap-1">
                     <Link href="/privacy-policy" className="hover:underline">
                         Privacy Policy
                     </Link>
-                    <div className="bg-gray-700 h-2 w-2 rounded-full"/>
+                    <div className="hidden md:block bg-gray-700 h-2 w-2 rounded-full"/>
                     <Link href="/terms" className="hover:underline">
                         Terms & Conditions
                     </Link>     
