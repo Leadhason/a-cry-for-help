@@ -15,8 +15,9 @@ const getProduct = async (slug) => {
     description,
     image,
     price,
-    details,
-    slug
+    specification,
+    slug,
+    reviews,
   }`
   return await client.fetch(query, { slug })
 }
@@ -96,7 +97,7 @@ export default function ProductDetails() {
                 <Star key={i} className="w-5 h-5 text-yellow-400" />
               ))}
             </div>
-            <span className="text-gray-500">(128 reviews)</span>
+            <span className="text-gray-500">({product.reviews} reviews)</span>
           </div>
           <p className="text-xl font-semibold">GHS {product.price}</p>
           <div className="space-y-6">
@@ -126,7 +127,7 @@ export default function ProductDetails() {
                 Buy Now
               </button>
             </div>
-            <div className="border border-gray-200 rounded-md mt-6">
+            <div className="border border-black rounded-md mt-6">
               <button
                 className="flex justify-between items-center w-full p-4 text-left"
                 onClick={() => setIsSpecsOpen(!isSpecsOpen)}

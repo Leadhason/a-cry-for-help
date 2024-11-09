@@ -5,20 +5,24 @@ import { useState, useEffect, useMemo } from "react"
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import ProductFilters from '../../../components/ProductFilters'
 
 const ITEMS_PER_PAGE = 12
 
-const getAllProducts = async (page) => {
-  const start = (page - 1) * ITEMS_PER_PAGE
-  const end = start + ITEMS_PER_PAGE
-
-  const AllProductsQuery = `*[_type == "product"]{
+const getAllProducts = async () => {
+  const AllProductsQuery = `*[_type == "product" && defined(category)]{
     _id,
     name,
     description,
     image,
     price,
-    slug
+    slug,
+    brand,
+    tags,
+    "categories": category[]->{
+      _id,
+      title
+    },
   }`
   
   const totalCountQuery = `count(*[_type == "product"])`
@@ -37,6 +41,7 @@ const CustomSkeleton = ({ className }) => (
 
 export default function ShopPage() {
   const [products, setProducts] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([])
   const [totalCount, setTotalCount] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [filterValue, setFilterValue] = useState("")
@@ -50,6 +55,7 @@ export default function ShopPage() {
       try {
         const { products, totalCount } = await getAllProducts()
         setProducts(products)
+        setFilteredProducts(products)
         setTotalCount(totalCount)
       } catch (error) {
         console.error("Failed to fetch products:", error)
@@ -60,12 +66,16 @@ export default function ShopPage() {
     fetchData()
   }, [])
 
-  const filteredProducts = useMemo(() => {
-    return products.filter(product => 
-      product.name.toLowerCase().includes(filterValue.toLowerCase()) ||
-      product.description.toLowerCase().includes(filterValue.toLowerCase())
+  const handleFilterChange = (filters) => {
+    const filtered = products.filter(product => 
+      (filters.brands.length === 0 || filters.brands.includes(product.brand)) &&
+      (filters.categories.length === 0 || filters.categories.includes(product.category)) &&
+      (filters.tags.length === 0 || product.tags?.some(tag => filters.tags.includes(tag))) &&
+      product.price >= filters.priceRange.min &&
+      product.price <= filters.priceRange.max
     )
-  }, [products, filterValue])
+    setFilteredProducts(filtered)
+  }
 
   const paginatedProducts = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE
@@ -81,8 +91,11 @@ export default function ShopPage() {
 
   return (
     <div className="flex flex-col mx-2 p-5 mt-5 mb-20">
-      <div className="flex justify-between items-center px-2">
+      <div className="flex justify-between w-full items-center px-2">
         <h1 className="font-extralight text-3xl">All Products</h1>
+        <div>
+          <ProductFilters products={products} onFilterChange={handleFilterChange} />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-6 mt-6">
@@ -127,7 +140,7 @@ export default function ShopPage() {
       </div>
 
       {paginatedProducts.length === 0 && !isLoading && (
-        <p className="text-center mt-8 text-gray-500">No products found matching your search.</p>
+        <p className="text-center mt-8 text-gray-500">No products found matching your criteria.</p>
       )}
 
       <div className="flex justify-center mt-10 space-x-1">

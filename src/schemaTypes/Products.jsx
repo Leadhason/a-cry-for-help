@@ -36,10 +36,27 @@ export default {
             validation: Rule => Rule.required().error("Product description is required"),
         },
         {
+            name: 'reviews',
+            title: 'Reviews',
+            type: 'number',
+            validation: Rule => Rule.required().error("Reviews is required"),
+        },
+        {
+            name: 'brand',
+            title: 'Brand',
+            type: 'string',
+        },
+        {
             name: 'price',
             title: 'Price',
             type: 'number',
             validation: Rule => Rule.required().precision(2).min(0).error("Price must be a non-negative number with up to two decimal places"),
+        },
+        {
+            name: 'specification',
+            title: 'Product Specifications',
+            type: 'text',
+            validation: Rule => Rule.required().error("Product description is required"),
         },
         {
             name: 'category',
