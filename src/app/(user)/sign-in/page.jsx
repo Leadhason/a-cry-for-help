@@ -1,8 +1,8 @@
 import Link from 'next/link'
 const SignInPage = () => {
   return (
-    <div className="bg-gray-100 flex flex-col z-10 w-full items-center p-2 mb-5">
-        <div className="flex flex-col mx-60 px-3 py-7 mb-10 mt-10 w-[500px] space-y-10">
+    <div className="bg-gray-100 flex flex-col z-0 w-full items-center px-3">
+        <div className="flex flex-col mx-60 px-3 py-10 mb-10 mt-10 w-[500px] space-y-10">
             <h3 className="text-5xl text-black font-light text-center">Sign In</h3>
             <form className="flex flex-col text-black space-y-7 px-4">
                 <div className="flex flex-col space-y-2">

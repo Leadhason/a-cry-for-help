@@ -90,10 +90,10 @@ export default function ShopPage() {
   }
 
   return (
-    <div className="flex flex-col mx-2 p-5 mt-5 mb-20">
-      <div className="flex justify-between w-full items-center px-2">
+    <div className="flex flex-col mx-2 p-5 mt-5 mb-20 w-auto">
+      <div className="flex justify-between items-center w-full p-2">
         <h1 className="font-extralight text-3xl">All Products</h1>
-        <div>
+        <div className="justify-end">
           <ProductFilters products={products} onFilterChange={handleFilterChange} />
         </div>
       </div>

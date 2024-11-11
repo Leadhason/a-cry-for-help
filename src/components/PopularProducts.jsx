@@ -21,7 +21,7 @@ const getPopularProducts = async () => {
 const CustomSkeleton = () => {
   return (
     <div className="flex flex-col mt-10 mx-2 p-5 mb-24 z-0 animate-pulse">
-      <div className="flex flex-col sm:flex-row justify-between p-3">
+      <div className="flex justify-between p-2">
         <h1 className="font-weight-500 text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-0">Popular Products</h1>
         <Link href="/shop">
           <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
@@ -60,20 +60,22 @@ const PopularProductsContent = ({ products }) => {
 
   return (
     <div className="flex flex-col mt-10 mx-2 p-5 mb-24 z-0">
-      <div className="flex flex-col sm:flex-row justify-between p-3">
+      <div className="flex justify-between p-3">
         <h1 className="font-weight-500 text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-0">Popular Products</h1>
-        <Link href="/shop">
-          <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
-            View All
-            <Image
-              src="/arrow-right-black.svg"
-              alt="arrow-right"
-              width={20}
-              height={20}
-              className="pt-1"
-            />
-          </button>
-        </Link>
+        <div>
+          <Link href="/shop">
+            <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
+              View All
+              <Image
+                src="/arrow-right-black.svg"
+                alt="arrow-right"
+                width={20}
+                height={20}
+                className="pt-1"
+              />
+            </button>
+          </Link>
+        </div>
       </div>
       <hr className="w-full bg-gray-500"/>
 

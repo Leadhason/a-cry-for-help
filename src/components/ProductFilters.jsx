@@ -110,7 +110,7 @@ const ProductFilters = ({ products, onFilterChange }) => {
   }
 
   return (
-    <div className="w-full py-2 ">
+    <div className="w-full py-2 px-3 sm:ml-20">
       <div className="flex flex-wrap gap-2 items-center">
         {/* Brand Filter */}
         <div className="relative text-light">

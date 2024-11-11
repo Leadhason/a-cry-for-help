@@ -46,10 +46,10 @@ const PopularProductsCarousel = ({ products }) => {
     <div className="w-full">
       <Slider {...settings}>
         {products.map((product) => (
-          <div className="mt-3 flex items-center p-2" key={product._id}>
+          <div className="mt-3 flex items-center p-2 space-x-6" key={product._id}>
             <Link href={`/shop/${product.slug.current}`}>
-              <div className="flex flex-col bg-transparent shadow-lg justify-center place-content-center w-full max-w-[330px] max-h-[520px] p-2">
-                <div className="bg-white h-[380px] w-full place-content-center rounded-md">
+              <div className="flex flex-col bg-transparent shadow-sm justify-center place-content-center w-full max-w-[330px] max-h-[480px] p-2">
+                <div className="bg-white h-[300px] w-full place-content-center rounded-md">
                   <Image
                     src={urlFor(product.image[0]).url()}
                     alt={product.name}
@@ -58,7 +58,7 @@ const PopularProductsCarousel = ({ products }) => {
                     className="object-contain w-full h-full p-1 hover:scale-105 duration-200"
                   />
                 </div>
-                <div className="text-sm space-y-2 text-left mt-4">
+                <div className="text-sm space-y-2 p-3 text-left mt-4">
                   <h3 className="font-semibold">{product.name}</h3>
                   <p className="font-extralight">GHS {product.price}</p>
                 </div>

@@ -58,7 +58,7 @@ const NewArrivalsContent = ({ products }) => {
 
   return (
     <div className="flex flex-col mx-2 p-5 mt-10 mb-20 z-0">
-      <div className="flex justify-between p-3">
+      <div className="flex justify-between p-2">
         <h1 className="font-weight-500 text-4xl">New Arrivals</h1>
         <Link href="/shop">
           <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
