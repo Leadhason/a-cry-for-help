@@ -22,15 +22,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en">
       <body
-        className={`${ubuntu.className} flex flex-col min-h-full`}
+        className={`${ubuntu.className}`}
       >
         <StateContextProvider>
-          <div className="flex flex-col flex-grow">
+          <div className="flex flex-col mx-auto">
             <Toaster />
             <Navbar />
-            <main className="flex-grow">
+            <main>
               {children}
             </main>
             <Footer />
