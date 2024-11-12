@@ -15,7 +15,7 @@ const Navbar = () => {
         { title: "Shop", link: "/shop" },
         { title: "Categories", link: "/categories" },
         { title: "About Us", link: "/about" },
-        { title: "Studio", link: "/studio" },
+        //{ title: "Studio", link: "/studio" },
     ]
     const [searchQuery, setSearchQuery] = useState("")
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
