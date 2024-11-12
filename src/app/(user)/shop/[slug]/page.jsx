@@ -138,12 +138,7 @@ export default function ProductDetails() {
               </button>
               {isSpecsOpen && (
                 <div className="p-4 border-t border-gray-200 space-y-4">
-                  {product.details && product.details.map((detail, index) => (
-                    <div key={index}>
-                      <h3 className="font-semibold">{detail.split(':')[0]}</h3>
-                      <p>{detail.split(':')[1]}</p>
-                    </div>
-                  ))}
+                  <p>{product.specification}</p> 
                 </div>
               )}
             </div>  
