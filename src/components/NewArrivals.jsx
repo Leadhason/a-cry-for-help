@@ -1,7 +1,4 @@
-'use client'
-
 import { client, urlFor } from "../lib/sanityClient"
-import React, { useState, useEffect } from "react"
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -13,76 +10,42 @@ const getNewArrivals = async () => {
     price,
     slug,
   }`
-  const products = await client.fetch(NewArrivalsQuery)
-  return products
+  return await client.fetch(NewArrivalsQuery)
 }
 
-const CustomSkeleton = () => {
+const NewArrivals = async () => {
+  const products = await getNewArrivals()
+
   return (
-    <div className="flex flex-col mx-2 p-5 mt-10 mb-20 z-0 animate-pulse">
-      <div className="flex justify-between p-3">
-        <h1 className="font-weight-500 text-4xl">New Arrivals</h1>
-        <Link href="/shop">
-          <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2" aria-label="View all new arrivals">
-            View All
-            <Image
-              src="/arrow-right-black.svg"
-              alt="arrow-right"
-              width={20}
-              height={20}
-              className="pt-1"
-            />
-          </button>
+    <section className="flex flex-col mx-2 p-5 mt-10 mb-20 z-0">
+      <div className="flex justify-between p-2">
+        <h2 className="font-medium text-3xl md:text-4xl">New Arrivals</h2>
+        <Link href="/shop" className="flex items-center gap-1 text-gray-500 hover:text-gray-800 p-2" aria-label="View all new arrivals">
+          View All
+          <Image
+            src="/arrow-right-black.svg"
+            alt=""
+            width={20}
+            height={20}
+            className="pt-1"
+          />
         </Link>
       </div>
       <hr className="w-full bg-gray-300 my-4"/>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 mt-6">
-        {[...Array(8)].map((_, index) => (
-          <div key={index} className="flex flex-col bg-transparent shadow-md w-full">
-            <div className="bg-gray-200 w-full aspect-square rounded-md"></div>
-            <div className="flex flex-col space-y-2 mt-4 p-4">
-              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-const NewArrivalsContent = ({ products }) => {
-  return (
-    <div className="flex flex-col mx-2 p-5 mt-10 mb-20 z-0">
-      <div className="flex justify-between p-2">
-        <h1 className="font-weight-500 text-4xl">New Arrivals</h1>
-        <Link href="/shop">
-          <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2" aria-label="View all new arrivals">
-            View All
-            <Image
-              src="/arrow-right-black.svg"
-              alt="arrow-right"
-              width={20}
-              height={20}
-              className="pt-1"
-            />
-          </button>
-        </Link>
-      </div>
-      <hr className="w-full bg-gray-500"/>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 mt-6">
         {products.map((product, index) => (
-          <div key={product._id} className="flex flex-col bg-transparent shadow-md w-full">
+          <article key={product._id} className="flex flex-col bg-transparent shadow-md w-full">
             <Link href={`/shop/${product.slug.current}`}>
               <div className="bg-white w-full aspect-square rounded-md overflow-hidden">
                 {product.image ? (
                   <Image
                     src={urlFor(product.image[0]).url()}
-                    alt={`${product.name} - New Arrival`}
+                    alt={product.name}
                     width={500}
                     height={500}
                     className="w-full h-full object-contain p-4 hover:scale-105 duration-200"
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     priority={index < 4}
                   />
                 ) : (
@@ -93,44 +56,14 @@ const NewArrivalsContent = ({ products }) => {
               </div>
               <div className="flex flex-col text-sm space-y-1 mt-4 p-4">
                 <h3 className="font-semibold">{product.name}</h3>
-                <p className="font-extralight">GHS {product.price}</p>
+                <p className="font-light">GHS {product.price}</p>
               </div>
             </Link>
-          </div>
+          </article>
         ))}
       </div>
-    </div>
+    </section>
   )
-}
-
-const NewArrivals = () => {
-  const [products, setProducts] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const newArrivals = await getNewArrivals()
-        setProducts(newArrivals)
-      } catch (err) {
-        setError('Failed to fetch new arrivals. Please try again later.')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    fetchData()
-  }, [])
-
-  if (isLoading) {
-    return <CustomSkeleton />
-  }
-
-  if (error) {
-    return <div className="text-center text-red-500 mt-10">{error}</div>
-  }
-
-  return <NewArrivalsContent products={products} />
 }
 
 export default NewArrivals
