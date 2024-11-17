@@ -1,4 +1,3 @@
-// app/shop/[slug]/page.tsx
 import { client } from '../../../../lib/sanityClient'
 import ProductDetails from './ProductDetails'
 
