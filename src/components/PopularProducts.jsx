@@ -24,7 +24,7 @@ const CustomSkeleton = () => {
       <div className="flex justify-between p-2">
         <h1 className="font-weight-500 text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-0">Popular Products</h1>
         <Link href="/shop">
-          <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
+          <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2" aria-label="View all popular products">
             View All
             <Image
               src="/arrow-right-black.svg"
@@ -54,7 +54,6 @@ const CustomSkeleton = () => {
 
 const PopularProductsContent = ({ products }) => {
   const DynamicPopularProductsCarousel = dynamic(() => import('./PopularProductsCarousel'), {
-    loading: () => <CustomSkeleton />,
     ssr: false
   })
 
@@ -64,7 +63,7 @@ const PopularProductsContent = ({ products }) => {
         <h1 className="font-weight-500 text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-0">Popular Products</h1>
         <div>
           <Link href="/shop">
-            <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2">
+            <button className="flex gap-1 text-gray-500 hover:text-gray-800 p-2" aria-label="View all popular products">
               View All
               <Image
                 src="/arrow-right-black.svg"
@@ -87,18 +86,28 @@ const PopularProductsContent = ({ products }) => {
 const PopularProducts = () => {
   const [products, setProducts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
-      const popularProducts = await getPopularProducts()
-      setProducts(popularProducts)
-      setIsLoading(false)
+      try {
+        const popularProducts = await getPopularProducts()
+        setProducts(popularProducts)
+      } catch (err) {
+        setError('Failed to fetch popular products. Please try again later.')
+      } finally {
+        setIsLoading(false)
+      }
     }
     fetchData()
   }, [])
 
   if (isLoading) {
     return <CustomSkeleton />
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500 mt-10">{error}</div>
   }
 
   return <PopularProductsContent products={products} />

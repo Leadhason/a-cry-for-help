@@ -21,13 +21,13 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex w-[140px] mx-1 items-center">
-                <button className="flex gap-1 justify-center items-center rounded-full w-full bg-orange-500 py-2 px-1 text-white text-lg hover:bg-orange-400">
+                <button className="flex gap-1 justify-center items-center rounded-full w-full bg-orange-500 py-2 px-1 text-white text-md hover:bg-orange-400">
                   Shop Now 
                   <Image
                     src="/arrow-right.svg"
                     alt="arrow right"
-                    width={30}
-                    height={30}
+                    width={20}
+                    height={20}
                     className=""
                   />
                 </button>
