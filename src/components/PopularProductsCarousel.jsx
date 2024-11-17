@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from "react"
+import React from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -9,8 +9,6 @@ import Image from "next/image"
 import Link from 'next/link'
 
 const PopularProductsCarousel = ({ products }) => {
-  const [imagesLoaded, setImagesLoaded] = useState(0)
-
   const settings = {
     dots: true,
     infinite: true,
@@ -44,17 +42,13 @@ const PopularProductsCarousel = ({ products }) => {
     ],
   }
 
-  const handleImageLoad = () => {
-    setImagesLoaded(prev => prev + 1)
-  }
-
   return (
     <div className="w-full">
       <Slider {...settings}>
         {products.map((product, index) => (
           <div className="mt-3 flex items-center p-2 space-x-6" key={product._id}>
-            <Link href={`/shop/${product.slug.current}`}>
-              <div className="flex flex-col bg-transparent shadow-sm justify-center place-content-center w-full max-w-[330px] max-h-[480px] p-2">
+            <Link href={`/shop/${product.slug.current}`} className="block w-full">
+              <article className="flex flex-col bg-transparent shadow-sm justify-center place-content-center w-full max-w-[330px] max-h-[480px] p-2">
                 <div className="bg-white h-[300px] w-full place-content-center rounded-md relative overflow-hidden">
                   <Image
                     src={urlFor(product.image[0]).url()}
@@ -62,16 +56,15 @@ const PopularProductsCarousel = ({ products }) => {
                     width={500}
                     height={500}
                     className="object-contain w-full h-full p-1 hover:scale-105 duration-200"
-                    onLoad={handleImageLoad}
                     priority={index < 4}
-                    loading={index < 4 ? "eager" : "lazy"}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                   />
                 </div>
                 <div className="text-sm space-y-2 p-3 text-left mt-4">
                   <h3 className="font-semibold">{product.name}</h3>
-                  <p className="font-extralight">GHS {product.price}</p>
+                  <p className="font-light">GHS {product.price}</p>
                 </div>
-              </div>
+              </article>
             </Link>
           </div>
         ))}
